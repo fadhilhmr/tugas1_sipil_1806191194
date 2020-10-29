@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Detail Pilot')"></nav>
+<section>
+    <h2>Detail Pilot</h2>
+    <h3 th:text="'Id                : '+ ${pilot.id}"></h3>
+    <h3 th:text="'Nama              : '+ ${pilot.nama}"></h3>
+    <h3 th:text="'NIK               : '+ ${pilot.nik}"></h3>
+    <h3 th:text="'Jenis Kelamin     : '+ ${pilot.jenis_kelamin}"></h3>
+    <h3 th:text="'NIP               : '+ ${pilot.nip}"></h3>
+    <h3 th:text="'Tempat Lahir      : '+ ${pilot.tempat_lahir}"></h3>
+    <h3 th:text="'Tanggal Lahir     : '+ ${pilot.tanggal_lahir}"></h3>
+    <h3 th:text="'Sekolah           : '+ ${pilot.akademi.getNama()}"></h3>
+    <h3 th:text="'Maskapai          : '+ ${pilot.maskapai.getNama()}"></h3>
+    <td><button type="button" th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</button></td>
+    <td><button type="button" th:href="@{/pilot/hapus}">Hapus</button></td>
+</section>
+
+<section>
+    <h2>Jadwal Bertugas</h2>
+    <div th:if="${adaTugas}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Penerbangan</th>
+                    <th>Waktu</th>
+                    <th>Kota Asal</th>
+                    <th>Kota Tujuan</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="penerbangan, iterationStatus : ${listBertugas}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${penerbangan.getPenerbangan().getKode()}"></td>
+                    <td th:text="${penerbangan.getPenerbangan().getWaktu()}"></td>
+                    <td th:text="${penerbangan.getPenerbangan().getKota_asal()}"></td>
+                    <td th:text="${penerbangan.getPenerbangan().getKota_tujuan()}"></td>
+                    <td>
+<!--                        <button lihat penerbangan -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div th:unless="${adaTugas}">
+        <h2 th:text="'Pilot Tidak Memiliki Jadwal Bertugas'"></h2>
+    </div>
+</section>
+</body>
+</html>

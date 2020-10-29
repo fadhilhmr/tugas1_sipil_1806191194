@@ -10,4 +10,8 @@ public interface PilotService {
 
     void generateNip(PilotModel pilot);
 
+    PilotModel getPilotByNip(String nip);
+
+    PilotModel updatePilot(PilotModel pilot);
+
 }

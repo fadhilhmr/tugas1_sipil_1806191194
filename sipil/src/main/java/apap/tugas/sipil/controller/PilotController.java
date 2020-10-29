@@ -1,6 +1,7 @@
 package apap.tugas.sipil.controller;
 
 import apap.tugas.sipil.model.PilotModel;
+import apap.tugas.sipil.model.PilotPenerbanganModel;
 import apap.tugas.sipil.service.AkademiService;
 import apap.tugas.sipil.service.MaskapaiService;
 import apap.tugas.sipil.service.PenerbanganService;
@@ -54,13 +55,40 @@ public class PilotController {
 
     @GetMapping("/pilot/{nip}")
     private String lihatPilot(
-            @PathVariable String nip,
+            @PathVariable(value= "nip") String nip,
             Model model){
 
-        model.addAttribute("pilot", pilot);
-        model.addAttribute("l")
+        PilotModel pilot = pilotService.getPilotByNip(nip);
+        List<PilotPenerbanganModel> listBertugas = pilot.getListPilotPenerbangan();
 
-        return "form-add-pilot";
+        model.addAttribute("pilot", pilot);
+        model.addAttribute("listBertugas", listBertugas);
+        model.addAttribute("adaTugas", !listBertugas.isEmpty());
+
+
+        return "view-pilot";
+    }
+
+    @GetMapping("/pilot/ubah/{nip}")
+    public String changePilotFormPage(
+            @PathVariable String nip,
+            Model model
+    ){
+        PilotModel pilot = pilotService.getPilotByNip(nip);
+        model.addAttribute("pilot", pilot);
+        return "form-update-pilot";
+
+    }
+    @PostMapping("/pilot/ubah")
+    public String changePilotFormSubmit(
+            @ModelAttribute PilotModel pilot,
+            Model model
+    ){
+        PilotModel pilotUpdated = pilotService.updatePilot(pilot);
+        pilotService.generateNip(pilotUpdated);
+        pilotService.addPilot(pilotUpdated);
+        model.addAttribute("pilotUpdated",pilotUpdated);
+        return "update-pilot";
     }
 
 

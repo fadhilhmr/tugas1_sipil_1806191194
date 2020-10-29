@@ -26,6 +26,11 @@ public class PilotServiceImpl implements PilotService{
         pilotDb.save(pilot);
     }
 
+    @Override
+    public  PilotModel getPilotByNip(String nip){
+        return pilotDb.findByNip(nip);
+    }
+
     public int getRandomNumberUsingNextInt(int max, int min) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
@@ -50,11 +55,18 @@ public class PilotServiceImpl implements PilotService{
         pilot.setNip(akhir);
     }
 
-//    @Override
-//    public void generateNip(long id){
-//        PilotModel pilotTemp = pilotDb.findById(id).get();
-//    }
-
+    @Override
+    public PilotModel updatePilot(PilotModel pilot){
+        PilotModel ubahPilot = pilotDb.findById(pilot.getId()).get();
+        ubahPilot.setAkademi(pilot.getAkademi());
+        ubahPilot.setMaskapai(pilot.getMaskapai());
+        ubahPilot.setNama(pilot.getNama());
+        ubahPilot.setNik(pilot.getNik());
+        ubahPilot.setJenis_kelamin(pilot.getJenis_kelamin());
+        ubahPilot.setTanggal_lahir(pilot.getTanggal_lahir());
+        ubahPilot.setTempat_lahir(pilot.getTempat_lahir());
+        return ubahPilot;
+    }
 
 
 }
