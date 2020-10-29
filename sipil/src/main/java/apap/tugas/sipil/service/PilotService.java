@@ -14,4 +14,6 @@ public interface PilotService {
 
     PilotModel updatePilot(PilotModel pilot);
 
+    void deletePilot(PilotModel pilot);
+
 }

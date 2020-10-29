@@ -22,6 +22,11 @@ public class PilotServiceImpl implements PilotService{
     }
 
     @Override
+    public void deletePilot(PilotModel pilot){
+        pilotDb.delete(pilot);
+    }
+
+    @Override
     public void addPilot(PilotModel pilot){
         pilotDb.save(pilot);
     }

@@ -65,7 +65,6 @@ public class PilotController {
         model.addAttribute("listBertugas", listBertugas);
         model.addAttribute("adaTugas", !listBertugas.isEmpty());
 
-
         return "view-pilot";
     }
 
@@ -75,6 +74,8 @@ public class PilotController {
             Model model
     ){
         PilotModel pilot = pilotService.getPilotByNip(nip);
+        model.addAttribute("listAkademi",akademiService.getListAkademi());
+        model.addAttribute("listMaskapai",maskapaiService.getListMaskapai());
         model.addAttribute("pilot", pilot);
         return "form-update-pilot";
 
@@ -89,6 +90,27 @@ public class PilotController {
         pilotService.addPilot(pilotUpdated);
         model.addAttribute("pilotUpdated",pilotUpdated);
         return "update-pilot";
+    }
+
+    @GetMapping("/pilot/hapus/{nip}")
+    public String deletePilot(
+            @PathVariable(value= "nip") String nip,
+            Model model
+    ){
+        try {
+            if (nip == null) {
+                return "error-null-input";
+            }
+            PilotModel pilot = pilotService.getPilotByNip(nip);
+            pilotService.deletePilot(pilot);
+            return "delete-pilot";
+            }
+        catch (NumberFormatException e){
+            return "error-input";
+        }
+        catch (NoSuchElementException e){
+            return "error-input";
+        }
     }
 
 

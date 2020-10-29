@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubah Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Tambah Penerbangan')"></nav>
+<h2>Ubah Penerbangan</h2>
+<form th:action="@{/penerbangan/ubah}"th:object="${penerbangan}" method = "POST">
+    <input type="hidden" th:field="*{id}">
+    Kode: <br>
+    <input type="text" name="kode" th:value="*{kode}"/>
+    <br><br>
+    Waktu: <br>
+    <input type="datetime-local" name="waktu" th:value="*{waktu}"/>
+    <br><br>
+    Kota Asal: <br>
+    <input type="text" name="kota_asal" th:value="*{kota_asal}"/>
+    <br><br>
+    Tujuan: <br>
+    <input type="text" name="kota_tujuan" th:value="*{kota_tujuan}"/>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

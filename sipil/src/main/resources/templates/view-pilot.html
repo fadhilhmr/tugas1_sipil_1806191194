@@ -20,8 +20,9 @@
     <h3 th:text="'Tanggal Lahir     : '+ ${pilot.tanggal_lahir}"></h3>
     <h3 th:text="'Sekolah           : '+ ${pilot.akademi.getNama()}"></h3>
     <h3 th:text="'Maskapai          : '+ ${pilot.maskapai.getNama()}"></h3>
-    <td><button type="button" th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</button></td>
-    <td><button type="button" th:href="@{/pilot/hapus}">Hapus</button></td>
+
+    <td><a class="btn-primary" th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</a></td>
+    <td><a class="btn-danger" th:href="@{/pilot/hapus/}+${pilot.nip}">Hapus</a></td>
 </section>
 
 <section>
@@ -46,7 +47,7 @@
                     <td th:text="${penerbangan.getPenerbangan().getKota_asal()}"></td>
                     <td th:text="${penerbangan.getPenerbangan().getKota_tujuan()}"></td>
                     <td>
-<!--                        <button lihat penerbangan -->
+                        <a class="btn-primary" th:href="@{/penerbangan/detail/}+${penerbangan.getPenerbangan().getId()}">Lihat</a>
                     </td>
                 </tr>
                 </tbody>

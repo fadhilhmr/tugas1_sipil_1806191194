@@ -1,10 +1,14 @@
 package apap.tugas.sipil.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +36,9 @@ public class PenerbanganModel implements Serializable{
 
 
     @NotNull
-    @Size(max=30)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name="waktu", nullable = false)
-    private Date waktu;
+    private LocalDateTime waktu;
 
     @OneToMany(mappedBy = "penerbangan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PilotPenerbanganModel> listPilotPenerbangan;
@@ -71,11 +75,11 @@ public class PenerbanganModel implements Serializable{
         this.kode = kode;
     }
 
-    public Date getWaktu() {
+    public LocalDateTime getWaktu() {
         return waktu;
     }
 
-    public void setWaktu(Date waktu) {
+    public void setWaktu(LocalDateTime waktu) {
         this.waktu = waktu;
     }
 
