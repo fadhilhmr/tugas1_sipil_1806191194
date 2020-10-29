@@ -14,12 +14,12 @@ public class AkademiModel implements Serializable{
     private Long id;
 
     @NotNull
-    @Size(max=30)
+    @Size(max=255)
     @Column(name="nama", nullable = false)
     private String nama;
 
     @NotNull
-    @Size(max=30)
+    @Size(max=255)
     @Column(name="lokasi", nullable = false)
     private String lokasi;
 

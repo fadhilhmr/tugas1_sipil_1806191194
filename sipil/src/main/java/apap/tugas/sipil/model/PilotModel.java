@@ -3,11 +3,13 @@ package apap.tugas.sipil.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,24 +21,9 @@ public class PilotModel implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max=30)
+    @Size(max=255)
     @Column(name="nama", nullable = false)
     private String nama;
-
-    @NotNull
-    @Size(max=30)
-    @Column(name="tempat_lahir", nullable = false)
-    private String tempat_lahir;
-
-    @NotNull
-    @Size(max=30)
-    @Column(name="tanggal_lahir", nullable = false)
-    private Date tanggal_lahir;
-
-    @NotNull
-    @Size(max=30)
-    @Column(name="nik", nullable = false)
-    private String nik;
 
     @NotNull
     @Size(max=13)
@@ -44,8 +31,30 @@ public class PilotModel implements Serializable {
     private String nip;
 
     @NotNull
+    @Size(max=255)
+    @Column(name="nik", nullable = false)
+    private String nik;
+
+    @NotNull
+    @Column(name="tanggal_lahir", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate tanggal_lahir;
+
+    @NotNull
+    @Size(max=255)
+    @Column(name="tempat_lahir", nullable = false)
+    private String tempat_lahir;
+
+
+    @NotNull
     @Column(name="jenis_kelamin", nullable = false)
     private Integer jenis_kelamin;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_maskapai", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private MaskapaiModel maskapai;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_akademi", referencedColumnName = "id", nullable = false)
@@ -53,11 +62,7 @@ public class PilotModel implements Serializable {
     @JsonIgnore
     private AkademiModel akademi;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_maskapai", referencedColumnName = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private MaskapaiModel maskapai;
+
 
     @OneToMany(mappedBy = "pilot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PilotPenerbanganModel> listPilotPenerbangan;
@@ -86,11 +91,15 @@ public class PilotModel implements Serializable {
         this.tempat_lahir = tempat_lahir;
     }
 
-    public Date getTanggal_lahir() {
+    public LocalDate getTanggal_lahir() {
         return tanggal_lahir;
     }
 
-    public void setTanggal_lahir(Date tanggal_lahir) {
+    public String strTanggal_lahir() {
+        return tanggal_lahir.toString();
+    }
+
+    public void setTanggal_lahir(LocalDate tanggal_lahir) {
         this.tanggal_lahir = tanggal_lahir;
     }
 

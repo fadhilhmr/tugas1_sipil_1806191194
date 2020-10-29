@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Tambah Pilot')"></nav>
+<h2>Tambah Pilot</h2>
+<form th:action="@{/pilot/tambah}"th:object="${pilot}" method = "POST">
+    Nama: <br>
+    <input type="text" name="nama"/>
+    <br><br>
+    NIK: <br>
+    <input type="text" name="nik"/>
+    <br><br>
+    Tempat Lahir: <br>
+    <input type="text" name="tempat_lahir"/>
+    <br><br>
+    Tanggal Lahir: <br>
+    <input type="date" th:field="*{tanggal_lahir}"/>
+    <br><br>
+    Jenis Kelamin: <br>
+    <select class="form-control" th:field="*{jenis_kelamin}">
+        <option value="1">Laki-Laki</option>
+        <option value="2">Perempuan</option>
+    </select>
+    <br><br>
+    Sekolah: <br>
+    <select class="form-control" th:field="*{akademi.id}">
+        <option th:each="akademi : ${listAkademi}" th:value="${akademi.id}" th:text="${akademi.nama}"></option>
+    </select>
+    <br><br>
+    Maskapai: <br>
+    <select class="form-control" th:field="*{maskapai.id}">
+        <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.id}" th:text="${maskapai.nama}"></option>
+    </select>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

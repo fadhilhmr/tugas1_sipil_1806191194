@@ -4,4 +4,5 @@ import apap.tugas.sipil.model.AkademiModel;
 import java.util.List;
 
 public interface AkademiService {
+    List<AkademiModel> getListAkademi();
 }

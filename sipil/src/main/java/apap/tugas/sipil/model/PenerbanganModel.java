@@ -16,19 +16,20 @@ public class PenerbanganModel implements Serializable{
     private Long id;
 
     @NotNull
-    @Size(max=30)
+    @Size(max=16)
+    @Column(name="kode", nullable = false, unique = true)
+    private String kode;
+
+    @NotNull
+    @Size(max=255)
     @Column(name="kota_asal", nullable = false)
     private String kota_asal;
 
     @NotNull
-    @Size(max=30)
+    @Size(max=255)
     @Column(name="kota_tujuan", nullable = false)
     private String kota_tujuan;
 
-    @NotNull
-    @Size(max=30)
-    @Column(name="kode", nullable = false, unique = true)
-    private String kode;
 
     @NotNull
     @Size(max=30)

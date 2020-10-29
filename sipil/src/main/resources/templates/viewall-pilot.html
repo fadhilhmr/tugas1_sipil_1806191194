@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Daftar Pilot')"></nav>
+<td><a th:href="@{/pilot/tambah}">Tambah Pilot</a></td>
+<h2>Daftar Pilot</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>NIP</th>
+        <th>NIK</th>
+        <th>Tanggal Lahir</th>
+        <th>Jenis Kelamin</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pilot, iterationStatus : ${listSemuaPilot}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${pilot.nama}"></td>
+        <td th:text="${pilot.nip}"></td>
+        <td th:text="${pilot.nik}"></td>
+        <td th:text="${pilot.tanggal_lahir}"></td>
+        <td>
+            <div th:if="${ pilot.jenis_kelamin == 1}">Laki-laki</div>
+            <div th:if="${ pilot.jenis_kelamin == 2}">Perempuan</div>
+        </td>
+        <td><a th:href="@{/pilot/}+${pilot.nip}">Lihat</a></td>
+        <td><a th:href="@{/pilot/ubah/}+${pilot.nip}">Ubah</a></td>
+        <td><a th:href="@{/pilot/hapus}">Hapus</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

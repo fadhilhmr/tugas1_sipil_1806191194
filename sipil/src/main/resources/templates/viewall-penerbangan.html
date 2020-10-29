@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Daftar Penerbangan')"></nav>
+<td><a th:href="@{/penerbangan/tambah}">Tambah Penerbangan</a></td>
+<h2>Daftar Penerbangan</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Kode Penerbangan</th>
+        <th>Waktu</th>
+        <th>Kota Asal</th>
+        <th>Kota Tujuan</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="penerbangan, iterationStatus : ${listSemuaPenerbangan}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${penerbangan.kode}"></td>
+        <td th:text="${penerbangan.waktu}"></td>
+        <td th:text="${penerbangan.kota_asal}"></td>
+        <td th:text="${penerbangan.kota_tujuan}"></td>
+        <td><a th:href="@{/penerbangan/detail/}+${penerbangan.id}">Lihat</a> </td>
+        <td><a th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a> </td>
+        <td><a th:href="@{/penerbangan/hapus}">Hapus</a></td>
+        <!--                    <td><a th:href="@{/kamar/delete/}+${kamar.noKamar}">Delete Kamar</a> </td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

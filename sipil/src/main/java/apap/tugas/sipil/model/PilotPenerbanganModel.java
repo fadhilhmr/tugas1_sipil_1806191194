@@ -35,5 +35,35 @@ public class PilotPenerbanganModel implements Serializable {
         @Column(name="tanggal_penugasan", nullable = false)
         private Date tanggal_penugasan;
 
+        public Long getId() {
+                return id;
+        }
 
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public PilotModel getPilot() {
+                return pilot;
+        }
+
+        public void setPilot(PilotModel pilot) {
+                this.pilot = pilot;
+        }
+
+        public PenerbanganModel getPenerbangan() {
+                return penerbangan;
+        }
+
+        public void setPenerbangan(PenerbanganModel penerbangan) {
+                this.penerbangan = penerbangan;
+        }
+
+        public Date getTanggal_penugasan() {
+                return tanggal_penugasan;
+        }
+
+        public void setTanggal_penugasan(Date tanggal_penugasan) {
+                this.tanggal_penugasan = tanggal_penugasan;
+        }
 }
