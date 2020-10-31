@@ -9,7 +9,7 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar('Ubah Pilot')"></nav>
-<h2 th:text="'Pilot dengan NIP '+${nip} +' berhasil diubah'"></h2>
+<h2 th:text="'Pilot dengan NIP '+${pilotUpdated.getNip()}+' berhasil diubah'"></h2>
 <a href="/pilot">Kembali ke Daftar Pilot</a>
 </body>
 </html>

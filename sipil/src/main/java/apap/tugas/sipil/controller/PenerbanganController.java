@@ -71,8 +71,7 @@ public class PenerbanganController {
         tempGabungan.setTanggal_penugasan(LocalDate.now());
         pilotPenerbanganService.addPilotPenerbangan(tempGabungan);
 
-        model.addAttribute("nama", tempGabungan.getPilot().getNama());
-        model.addAttribute("kode", tempGabungan.getPenerbangan().getKode());
+        model.addAttribute("kelas", tempGabungan);
 
         return "penerbangan-add-pilot";
     }

@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PilotPenerbanganDb extends JpaRepository<PilotPenerbanganModel,Long> {
     Optional<PilotPenerbanganModel> findById(Long id);
+
 }

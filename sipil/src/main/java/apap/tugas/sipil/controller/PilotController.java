@@ -1,16 +1,16 @@
 package apap.tugas.sipil.controller;
 
 import apap.tugas.sipil.model.*;
-import apap.tugas.sipil.service.AkademiService;
-import apap.tugas.sipil.service.MaskapaiService;
-import apap.tugas.sipil.service.PenerbanganService;
-import apap.tugas.sipil.service.PilotService;
+import apap.tugas.sipil.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -19,6 +19,9 @@ public class PilotController {
 
     @Autowired
     private PilotService pilotService;
+
+    @Autowired
+    private PilotPenerbanganService pilotPenerbanganService;
 
     @Autowired
     private MaskapaiService maskapaiService;
@@ -77,6 +80,25 @@ public class PilotController {
         model.addAttribute("pilot", pilot);
         return "form-update-pilot";
 
+    }
+
+    @GetMapping("/cari/pilot/bulan-ini")
+    public String pilotBulan(
+            Model model
+    ){
+        Month sekarang= LocalDateTime.now().getMonth();
+        List<PilotModel> semua = new ArrayList<PilotModel>();
+        List<PilotModel> test = pilotService.getListPilot();
+        for(PilotModel pilot : test){
+            List<PilotPenerbanganModel> tugas = pilot.getListPilotPenerbangan();
+            for(PilotPenerbanganModel target : tugas){
+                if(target.getTanggal_penugasan().getMonth().equals(sekarang)){
+                    semua.add(target.getPilot());
+                }
+            }
+        }
+        model.addAttribute("semua", semua);
+        return "riwayat-pilot";
     }
     @PostMapping("/pilot/ubah")
     public String changePilotFormSubmit(

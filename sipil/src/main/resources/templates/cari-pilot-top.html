@@ -10,19 +10,25 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar('Cari Pilot Terbanyak')"></nav>
 
-<form th:action="@{/cari/pilot/penerbangan-terbanyak}"  method="GET">
-    <h4>Pilih Kode Maskapai :</h4>
-    <select class="form-control" name="kodeMaskapai">
-        <option th:value="null" th:text="---"></option>
-        <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
-    </select>
-    <button type="submit">Cari Pilot</button>
-</form>
+<div class="col-md-6">
+    <form th:action="@{/cari/pilot/penerbangan-terbanyak}"  method="GET">
+        <h4>Pilih Kode Maskapai :</h4>
+        <select class="form-control" name="kodeMaskapai">
+            <option th:value="null" th:text="---"></option>
+            <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
+        </select>
+        <button type="submit">Cari Pilot</button>
+    </form>
+</div>
+
 <section>
     <div th:if="${adaPilot}">
-        <table class="table">
+        <div class="col-md-6">
+            <h2 class="display-4 text-light" style="background-color: #0c5460">Pilot Terbaik Dari Maskapai</h2>
+        </div>
+        <table class="table table-striped">
             <thead>
-            <tr>
+            <tr class="text-light" style="background-color: #0c5460">
                 <th>No</th>
                 <th>Nama</th>
                 <th>NIP</th>

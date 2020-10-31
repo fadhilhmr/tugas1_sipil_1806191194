@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:color="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title> Home</title>
@@ -17,8 +17,8 @@
 </head>
 
 <body>
-<nav th:fragment="navbar(title)" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a th:text="traveloke" class="navbar-brand font-weight-bold text-primary" href="#"></a>
+<nav th:fragment="navbar(title)" class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #1b4464">
+    <a th:text="SIPILOT" class="navbar-brand font-weight-bold text-primary" href="/"></a>
     <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarNavAltMarkup"
              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,10 +28,22 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" th:href="@{/}">Home <span class="sr-only"> (current)</span> </a>
         </div>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/pilot}">Pilot<span class="sr-only"> (current)</span> </a>
+        </div>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/penerbangan}">Penerbangan<span class="sr-only"> (current)</span> </a>
+        </div>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/cari/pilot}">Cari Pilot<span class="sr-only"> (current)</span></a></td>
+        </div>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/cari/pilot/bulan-ini}">Bonus<span class="sr-only"> (current)</span></a></td>
+        </div>
     </div>
-    <a th:text="${title}" class="nav-item nav-link active text-secondary" th:href="@{/}"></a>
-
+    <ul class="nav navbar-nav navbar-right">
+        <a th:text="${title}" class="nav-item nav-link active text-secondary" th:href="@{/}"></a>
+    </ul>
 </nav>
-
 </body>
 </html>

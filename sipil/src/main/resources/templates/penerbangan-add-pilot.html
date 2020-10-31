@@ -9,8 +9,8 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar('Ubah Pilot')"></nav>
-<h2 th:text="'Pilot bernama '+${nama} +' berhasil ditambahkan pada penerbangan '+
-    ${kode}"></h2>
+<h2 th:text="'Pilot bernama '+${kelas.getPilot().getNama()} +' berhasil ditambahkan pada penerbangan '+
+    ${kelas.getPenerbangan().getKode()}"></h2>
 <a href="/penerbangan">Kembali ke Daftar Penerbangan</a>
 </body>
 </html>

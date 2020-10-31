@@ -9,25 +9,36 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar('Cari Pilot')"></nav>
+<div class="col-md-6">
+    <form th:action="@{/cari/pilot}"  method="GET">
+        <div class="col-6">
+            <h4>Pilih Kode Maskapai :</h4>
+            <select class="form-control" name="kodeMaskapai">
+                <option th:value="-1" th:text="---"></option>
+                <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
+            </select>
+        </div>
+        <div class="col-6">
+            <h4>Pilih Nama Sekolah :</h4>
+            <select class="form-control" name="idSekolah">
+                <option th:value="-1" th:text="---"></option>
+                <option th:each="akademi : ${listAkademi}" th:value="${akademi.getId()}" th:text="${akademi.getNama()}"></option>
+            </select>
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn-primary btn-md">Cari Pilot</button>
+        </div>
+    </form>
+</div>
 
-<form th:action="@{/cari/pilot}"  method="GET">
-    <h4>Pilih Kode Maskapai :</h4>
-    <select class="form-control" name="kodeMaskapai">
-        <option th:value="-1" th:text="---"></option>
-        <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
-    </select>
-    <h4>Pilih Nama Sekolah :</h4>
-    <select class="form-control" name="idSekolah">
-        <option th:value="-1" th:text="---"></option>
-        <option th:each="akademi : ${listAkademi}" th:value="${akademi.getId()}" th:text="${akademi.getNama()}"></option>
-    </select>
-    <button type="submit">Cari Pilot</button>
-</form>
 <section>
+    <div class="col-md-6">
+        <h2 class="display-4 text-light" style="background-color: #0c5460">Pilot yang Dicari</h2>
+    </div>
 <div th:if="${adaPilot}">
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-        <tr>
+        <tr class="text-light" style="background-color: #0c5460">
             <th>No</th>
             <th>Nama</th>
             <th>NIP</th>

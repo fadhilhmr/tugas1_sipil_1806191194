@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:color="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Detail Pilot</title>
@@ -9,6 +9,26 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar('Detail Pilot')"></nav>
+<div class="row-cols-3">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
 <section>
     <h2>Detail Pilot</h2>
     <h3 th:text="'Id                : '+ ${pilot.id}"></h3>
