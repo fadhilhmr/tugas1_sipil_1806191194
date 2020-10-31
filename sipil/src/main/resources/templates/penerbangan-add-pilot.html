@@ -8,8 +8,9 @@
 </head>
 
 <body>
-<nav th:replace="fragments/fragment :: navbar('Hapus Penerbangan')"></nav>
-<h2 th:text="'Penerbangan dengan kode '+${kode}+' Berhasil Dihapuskan'"></h2>
+<nav th:replace="fragments/fragment :: navbar('Ubah Pilot')"></nav>
+<h2 th:text="'Pilot bernama '+${nama} +' berhasil ditambahkan pada penerbangan '+
+    ${kode}"></h2>
 <a href="/penerbangan">Kembali ke Daftar Penerbangan</a>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cari Pilot Terbaik</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Cari Pilot Terbanyak')"></nav>
+
+<form th:action="@{/cari/pilot/penerbangan-terbanyak}"  method="GET">
+    <h4>Pilih Kode Maskapai :</h4>
+    <select class="form-control" name="kodeMaskapai">
+        <option th:value="null" th:text="---"></option>
+        <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
+    </select>
+    <button type="submit">Cari Pilot</button>
+</form>
+<section>
+    <div th:if="${adaPilot}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th>Jumlah Penerbangan</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pilot, iterationStatus : ${topPilot}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${pilot.getNama()}"></td>
+                <td th:text="${pilot.getNip()}"></td>
+                <td th:text="${pilot.getListPilotPenerbangan().size()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+    <div th:unless="${adaPilot}">
+    </div>
+</section>
+</body>
+</html>

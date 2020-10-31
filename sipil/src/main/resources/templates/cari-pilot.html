@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cari Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Cari Pilot')"></nav>
+
+<form th:action="@{/cari/pilot}"  method="GET">
+    <h4>Pilih Kode Maskapai :</h4>
+    <select class="form-control" name="kodeMaskapai">
+        <option th:value="-1" th:text="---"></option>
+        <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
+    </select>
+    <h4>Pilih Nama Sekolah :</h4>
+    <select class="form-control" name="idSekolah">
+        <option th:value="-1" th:text="---"></option>
+        <option th:each="akademi : ${listAkademi}" th:value="${akademi.getId()}" th:text="${akademi.getNama()}"></option>
+    </select>
+    <button type="submit">Cari Pilot</button>
+</form>
+<section>
+<div th:if="${adaPilot}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIP</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pilot, iterationStatus : ${listTemp}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${pilot.getNama()}"></td>
+            <td th:text="${pilot.getNip()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+<div th:unless="${adaPilot}">
+</div>
+</section>
+</body>
+</html>

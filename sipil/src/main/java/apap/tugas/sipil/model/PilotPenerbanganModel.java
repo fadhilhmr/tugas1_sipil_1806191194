@@ -3,11 +3,13 @@ package apap.tugas.sipil.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -31,9 +33,9 @@ public class PilotPenerbanganModel implements Serializable {
         private PenerbanganModel penerbangan;
 
         @NotNull
-        @Size(max=30)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         @Column(name="tanggal_penugasan", nullable = false)
-        private Date tanggal_penugasan;
+        private LocalDate tanggal_penugasan;
 
         public Long getId() {
                 return id;
@@ -59,11 +61,11 @@ public class PilotPenerbanganModel implements Serializable {
                 this.penerbangan = penerbangan;
         }
 
-        public Date getTanggal_penugasan() {
+        public LocalDate getTanggal_penugasan() {
                 return tanggal_penugasan;
         }
 
-        public void setTanggal_penugasan(Date tanggal_penugasan) {
+        public void setTanggal_penugasan(LocalDate tanggal_penugasan) {
                 this.tanggal_penugasan = tanggal_penugasan;
         }
 }

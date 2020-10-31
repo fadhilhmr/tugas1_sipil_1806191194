@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -42,11 +43,51 @@ public class PilotServiceImpl implements PilotService{
     }
 
     @Override
+    public List<PilotModel> getListPilotById_akademi(Long id){
+        List<PilotModel> targetPilot = new ArrayList<PilotModel>();
+        List<PilotModel> allPilot = pilotDb.findAll();
+        for (PilotModel pilot: allPilot) {
+            if (pilot.getAkademi().getId() == id){
+                targetPilot.add(pilot);
+            }
+        }
+        return targetPilot;
+    }
+
+    @Override
+    public  List<PilotModel> getGetListPilotByKode_maskapai(String kode){
+        List<PilotModel> targetPilot=new ArrayList<PilotModel>();
+        List<PilotModel> allPilot = pilotDb.findAll();
+        for (PilotModel pilot: allPilot) {
+            if (pilot.getMaskapai().getKode().equals(kode)){
+                targetPilot.add(pilot);
+            }
+        }
+        return targetPilot;
+    }
+
+    @Override
+    public List<PilotModel> getGetListPilotByKode_maskapaiAndId_akademi(String kode, Long id){
+        List<PilotModel> targetPilot = new ArrayList<PilotModel>();
+        List<PilotModel> allPilot = pilotDb.findAll();
+        for (PilotModel pilot: allPilot) {
+            if (pilot.getMaskapai().getKode().equals(kode)){
+                if(pilot.getAkademi().getId() == id){
+                    targetPilot.add(pilot);
+                }
+            }
+        }
+        return targetPilot;
+    }
+
+
+
+    @Override
     public void generateNip(PilotModel pilot){
         String str1 = Integer.toString(pilot.getJenis_kelamin());
         String str2 = pilot.getTempat_lahir().substring(0,2).toUpperCase();
         int panjang = pilot.getNama().length();
-        String str3 = pilot.getNama().substring(panjang-1);
+        String str3 = pilot.getNama().substring(panjang-1).toUpperCase();
         String str4 = Integer.toString(pilot.getTanggal_lahir().getDayOfMonth());
         String str5 = Integer.toString(pilot.getTanggal_lahir().getMonth().getValue());
         int tempVar = pilot.getTanggal_lahir().getYear();

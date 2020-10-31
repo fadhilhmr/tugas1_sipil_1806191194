@@ -17,11 +17,21 @@
     <h3 th:text="'Kota Asal         : '+ ${penerbangan.kota_asal}"></h3>
     <h3 th:text="'Kota Tujuan       : '+ ${penerbangan.kota_tujuan}"></h3>
     <td><a class="btn-primary" th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a></td>
-    <td><a class="btn-danger" th:href="@{/penerbangan/hapus/}+${penerbangan.id}">Hapus</a></td>
+    <td><a class="btn-danger" th:href="@{/penerbangan/hapus}">Hapus</a></td>
 </section>
+
+<form th:action="@{/penerbangan/{id}/pilot/tambah(id = ${penerbangan.id})}" th:object="${tempGabungan}" method="POST">
+    <input type="hidden" th:field="*{penerbangan}">
+    <select class="form-control" th:field="*{pilot.id}">
+        <option th:each="pilotBaru : ${listSemuaPilot}" th:value="${pilotBaru.id}" th:text="${pilotBaru.nama}"></option>
+    </select>
+    <button type="submit">Tambah Pilot</button>
+</form>
+
+
 <section>
     <h2>Jadwal Bertugas</h2>
-    <div th:if="${adaTugas}">
+<!--    <div th:if="${adaTugas}">-->
         <table class="table">
             <thead>
             <tr>
@@ -46,8 +56,8 @@
         </table>
         </form>
     </div>
-    <div th:unless="${adaTugas}">
-        <h4 th:text="'Tidak Ada Pilot Yang Bertugas Di Penerbangan Ini'"></h4>
+<!--    <div th:unless="${adaTugas}">-->
+<!--        <h4 th:text="'Tidak Ada Pilot Yang Bertugas Di Penerbangan Ini'"></h4>-->
     </div>
 </section>
 </body>

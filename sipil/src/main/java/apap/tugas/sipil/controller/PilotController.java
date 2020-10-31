@@ -1,12 +1,10 @@
 package apap.tugas.sipil.controller;
 
-import apap.tugas.sipil.model.PilotModel;
-import apap.tugas.sipil.model.PilotPenerbanganModel;
+import apap.tugas.sipil.model.*;
 import apap.tugas.sipil.service.AkademiService;
 import apap.tugas.sipil.service.MaskapaiService;
 import apap.tugas.sipil.service.PenerbanganService;
 import apap.tugas.sipil.service.PilotService;
-import apap.tugas.sipil.model.PenerbanganModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -98,7 +96,7 @@ public class PilotController {
             Model model
     ){
         try {
-            if (nip == null) {
+            if (nip.equals(null)) {
                 return "error-null-input";
             }
             PilotModel pilot = pilotService.getPilotByNip(nip);
@@ -113,5 +111,83 @@ public class PilotController {
         }
     }
 
+    @RequestMapping("cari/pilot/penerbangan-terbanyak")
+    public String cariPilotTerbanyak(
+            @RequestParam(value="kodeMaskapai", required = false) String kode,
+            Model model){
+        if(kode == null){
+            List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+            model.addAttribute("adaPilot", false);
+            model.addAttribute("listMaskapai",listMaskapai);
+            return "cari-pilot-top";
+        }
+        else{
+            MaskapaiModel maskapai = maskapaiService.getMaskapaiByKode(kode);
+            if(maskapai.getListPilot().size() > 3){
+                List<PilotModel> topPilot = maskapaiService.getTopThree(kode);
+                List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+                model.addAttribute("listMaskapai",listMaskapai);
+                model.addAttribute("adaPilot", true);
+                model.addAttribute("topPilot", topPilot);
+                return "cari-pilot-top";
+            }
+            else {
+                List<PilotModel> topPilot = maskapaiService.getSortedList(kode);
+                List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+                model.addAttribute("listMaskapai",listMaskapai);
+                model.addAttribute("adaPilot", true);
+                model.addAttribute("topPilot", topPilot);
+                return "cari-pilot-top";
+            }
+        }
+    }
+
+    @RequestMapping("/cari/pilot")
+    public String cariPilotMaskAkad(
+            @RequestParam(value = "kodeMaskapai" , required = false) String kode,
+            @RequestParam(value = "idSekolah", required = false) Long id,
+            Model model){
+        if (kode == null || kode.equals("-1")){
+            if((""+id).equals("-1")){
+                List<AkademiModel> listAkademi = akademiService.getListAkademi();
+                List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+                model.addAttribute("adaPilot",false);
+                model.addAttribute("listAkademi",listAkademi);
+                model.addAttribute("listMaskapai",listMaskapai);
+                return "cari-pilot";
+            }
+            else{
+                List<AkademiModel> listAkademi = akademiService.getListAkademi();
+                List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+                List<PilotModel> listTemp = pilotService.getListPilotById_akademi(id);
+                model.addAttribute("adaPilot",true);
+                model.addAttribute("listAkademi",listAkademi);
+                model.addAttribute("listMaskapai",listMaskapai);
+                model.addAttribute("listTemp", listTemp);
+                return "cari-pilot";
+            }
+        }
+        else if((""+id).equals("-1")){
+            List<AkademiModel> listAkademi = akademiService.getListAkademi();
+            List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+            List<PilotModel> listTemp = pilotService.getGetListPilotByKode_maskapai(kode);
+            model.addAttribute("adaPilot",!listTemp.isEmpty());
+            model.addAttribute("listAkademi",listAkademi);
+            model.addAttribute("listMaskapai",listMaskapai);
+            model.addAttribute("listTemp", listTemp);
+            return "cari-pilot";
+        }
+        else{
+            List<AkademiModel> listAkademi = akademiService.getListAkademi();
+            List<MaskapaiModel> listMaskapai = maskapaiService.getListMaskapai();
+            List<PilotModel> listTemp = pilotService.getGetListPilotByKode_maskapaiAndId_akademi(kode,id);
+            model.addAttribute("adaPilot",!listTemp.isEmpty());
+            model.addAttribute("listAkademi",listAkademi);
+            model.addAttribute("listMaskapai",listMaskapai);
+            model.addAttribute("listTemp", listTemp);
+            return "cari-pilot";
+        }
+
+    }
 
 }

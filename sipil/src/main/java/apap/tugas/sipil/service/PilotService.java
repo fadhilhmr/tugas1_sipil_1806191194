@@ -16,4 +16,11 @@ public interface PilotService {
 
     void deletePilot(PilotModel pilot);
 
+    List<PilotModel> getListPilotById_akademi(Long id);
+
+    List<PilotModel> getGetListPilotByKode_maskapai(String kode);
+
+    List<PilotModel> getGetListPilotByKode_maskapaiAndId_akademi(String kode, Long id);
+
+
 }
