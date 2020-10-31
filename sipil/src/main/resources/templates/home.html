@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:color="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<!--<nav th:replace="fragments/fragment :: navbar('Home')"></nav>-->
+
+<body>
+<div class="container align-content-center">
+    <div class="jumbotron jumbotron-fluid" style="background-color: #0c5460">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h7 class="font-weight-light text-light" >Fly with,</h7>
+                <h1 class="display-3 text-light" >SIPILOT.</h1>
+                <hr class="my-4">
+            </div>
+
+            <div class="d-flex justify-content-md-start">
+                <p class="font-weight-light text-light ">Pilih fitur</p>
+            </div>
+
+
+                <div class="d-flex justify-content-start">
+                    <div class="col-2">
+                        <td><a th:href="@{/pilot}" class="btn-dark text-light btn-block text-center">Pilot</a></td>
+                    </div>
+                    <div class="col-2">
+                        <td><a th:href="@{/penerbangan}" class="btn-dark text-light btn-block text-center">Penerbangan</a></td>
+                    </div>
+                    <div class="col-2">
+                        <td><a th:href="@{/cari/pilot}" class="btn-dark text-light btn-block text-center">Cari Pilot</a></td>
+                    </div>
+                    <div class="col-2">
+                        <td><a th:href="@{/cari/pilot/penerbangan-terbanyak}" class="btn-dark text-light btn-block text-center">Cari Pilot Terbanyak</a></td>
+                    </div>
+                </div>
+
+
+        </div>
+    </div>
+    <div >
+
+    </div>
+    <br>
+    <div class="row justify-content-center">
+
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

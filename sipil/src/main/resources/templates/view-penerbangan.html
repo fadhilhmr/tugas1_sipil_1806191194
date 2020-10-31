@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Detail Penerbangan')"></nav>
+<section>
+    <h2>Detail Penerbangan</h2>
+    <h3 th:text="'Id                : '+ ${penerbangan.id}"></h3>
+    <h3 th:text="'Kode              : '+ ${penerbangan.kode}"></h3>
+    <h3 th:text="'Waktu             : '+ ${#temporals.format(penerbangan.waktu, 'dd-MM-yyyy HH:mm')}"></h3>
+    <h3 th:text="'Kota Asal         : '+ ${penerbangan.kota_asal}"></h3>
+    <h3 th:text="'Kota Tujuan       : '+ ${penerbangan.kota_tujuan}"></h3>
+    <td><a class="btn-primary" th:href="@{/penerbangan/ubah/}+${penerbangan.id}">Ubah</a></td>
+    <td><a class="btn-danger" th:href="@{/penerbangan/hapus/}+${penerbangan.id}">Hapus</a></td>
+</section>
+
+<form th:action="@{/penerbangan/{id}/pilot/tambah(id = ${penerbangan.id})}" th:object="${tempGabungan}" method="POST">
+    <input type="hidden" th:field="*{penerbangan}">
+    <select class="form-control" th:field="*{pilot.id}">
+        <option th:each="pilotBaru : ${listSemuaPilot}" th:value="${pilotBaru.id}" th:text="${pilotBaru.nama}"></option>
+    </select>
+    <button type="submit">Tambah Pilot</button>
+</form>
+
+
+<section>
+    <h2>Jadwal Bertugas</h2>
+<!--    <div th:if="${adaTugas}">-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th>Tanggal Lahir</th>
+                <th>Jenis Kelamin</th>
+                <th>Tanggal Penugasan</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pilot, iterationStatus : ${listBertugas}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${pilot.getPilot().getNama()}"></td>
+                <td th:text="${pilot.getPilot().getNip()}"></td>
+                <td th:text="${pilot.getPilot().getTanggal_lahir()}"></td>
+                <td th:text="${pilot.getPilot().getJenis_kelamin()}"></td>
+                <td th:text="${pilot.getTanggal_penugasan()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+<!--    <div th:unless="${adaTugas}">-->
+<!--        <h4 th:text="'Tidak Ada Pilot Yang Bertugas Di Penerbangan Ini'"></h4>-->
+    </div>
+</section>
+</body>
+</html>

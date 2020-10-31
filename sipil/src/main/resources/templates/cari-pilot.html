@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cari Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Cari Pilot')"></nav>
+<div class="col-md-6">
+    <form th:action="@{/cari/pilot}"  method="GET">
+        <div class="col-6">
+            <h4>Pilih Kode Maskapai :</h4>
+            <select class="form-control" name="kodeMaskapai">
+                <option th:value="-1" th:text="---"></option>
+                <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.getKode()}" th:text="${maskapai.getKode()}"></option>
+            </select>
+        </div>
+        <div class="col-6">
+            <h4>Pilih Nama Sekolah :</h4>
+            <select class="form-control" name="idSekolah">
+                <option th:value="-1" th:text="---"></option>
+                <option th:each="akademi : ${listAkademi}" th:value="${akademi.getId()}" th:text="${akademi.getNama()}"></option>
+            </select>
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn-primary btn-md">Cari Pilot</button>
+        </div>
+    </form>
+</div>
+
+<section>
+    <div class="col-md-6">
+        <h2 class="display-4 text-light" style="background-color: #0c5460">Pilot yang Dicari</h2>
+    </div>
+<div th:if="${adaPilot}">
+    <table class="table table-striped">
+        <thead>
+        <tr class="text-light" style="background-color: #0c5460">
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIP</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pilot, iterationStatus : ${listTemp}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${pilot.getNama()}"></td>
+            <td th:text="${pilot.getNip()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+<div th:unless="${adaPilot}">
+</div>
+</section>
+</body>
+</html>
